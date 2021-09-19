@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul-escuro: #034071;
+    --azul: #1378bc;
+}
+
+body {
+    overflow: hidden;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: forestgreen;
+    transition: 1s;
+    transition-delay: 1s;
+}
+
+section.active {
+    background-color: var(--azul-escuro);
+    transition-delay: 1s;
+}
+
+section .runway {
+    position: relative;
+    width: 400px;
+    height: 100vh;
+    background-color: #222222;
+    border-left: 20px solid darkgoldenrod;
+    border-right: 20px solid darkgoldenrod;
+    transition: transform 1s;
+    transition-delay: 1s;
+    transform-origin: top;
+}
+
+section.active .runway{
+    transform: scaleX(0.7) scaleY(0);
+    transition-delay: 1s;
+    transform-origin: bottom;
+}
+
+section .runway:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 100%;
+    background: repeating-linear-gradient(transparent 0%, transparent 50%, #fff 50%, #fff 100%);
+    background-size: 20px 320px;
+    animation: animateRunway 0.5s linear infinite;
+}
+
+section.active .runway:before {
+    animation: animateRunway 0.35s linear infinite;
+}
+
+@keyframes animateRunway {
+    from {
+        background-position-y: 0;
+    }
+    to {
+        background-position-y: 640px;
+    }
+}
+
+.plane {
+    position: absolute;
+    bottom: 100px;
+    max-width: 250px;
+    pointer-events: none;
+    filter: drop-shadow(10px 10px 0 rgba(0,0,0,.5));
+    transition: 5s;
+}
+
+section.active .plane {
+    max-width: 450px;
+    filter: drop-shadow(200px 200px 0 rgba(0,0,0,0));
+}
+
+.clouds {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2s;
+    transition-delay: 0s;
+}
+
+section.active .clouds {
+    opacity: .8;
+    transition-delay: 1s;
+}
+
+.clouds img {
+    position: absolute;
+    left: 0;
+    width: 500px;
+    animation: animateClouds 6s linear infinite;
+    animation-delay: calc(-1.5s * var(--i));
+}
+
+.clouds2 {
+    right: 0;
+    transform: rotate(180deg);
+}
+
+.clouds2 img {
+    animation: animateClouds2 6s linear infinite;
+    animation-delay: calc(-1.5s * var(--i));
+}
+
+@keyframes animateClouds {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes animateClouds2 {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
